@@ -11,5 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "mustache": "^4.2.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
   }
 }
