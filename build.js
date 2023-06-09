@@ -1,6 +1,12 @@
 const Mustache = require('mustache');
 const fs = require('fs');
 const path = require('path');
+const matter = require('gray-matter');
+
+const defaultOptions = {
+    title: 'Presentation',
+    theme: 'black',
+}
 
 if (!fs.existsSync(path.join(__dirname, 'reveal.js'))) {
     console.error('reveal.js not found. Please run `git submodule update --init --recursive`');
@@ -26,9 +32,11 @@ function writeTemplates() {
     // Render the template for each slide
     slides.forEach((slide) => {
         // Read the slide data
-        const slideData = fs.readFileSync(path.join(__dirname, 'slides', slide), 'utf8');
+        const data = fs.readFileSync(path.join(__dirname, 'slides', slide), 'utf8');
         // Write the rendered template to a file
-        const renderedSlide = Mustache.render(template, { slide: slideData });
+        const frontMatter = matter(data);
+        const slideData = Object.assign({}, defaultOptions, frontMatter.data, { slide: frontMatter.content });
+        const renderedSlide = Mustache.render(template, slideData);
         const builtSlidePath = path.join(__dirname, 'dist', slide + '.html');
         fs.writeFileSync(builtSlidePath, renderedSlide);
     });

@@ -1,3 +1,8 @@
+---
+title: Example
+theme: night
+---
+
 # Example
 
 This is an example slide.

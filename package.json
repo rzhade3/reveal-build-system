@@ -10,6 +10,7 @@
   "author": "Rahul Zhade",
   "license": "MIT",
   "dependencies": {
+    "gray-matter": "^4.0.3",
     "mustache": "^4.2.0"
   },
   "engines": {
